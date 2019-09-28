@@ -1,0 +1,33 @@
+<h2>Calendar</h2>
+<table class="table">
+  <thead class="thead-light">
+    <th scope="col">Subject</th>
+    <th scope="col">Start</th>
+    <th scope="col">End</th>
+    <th scope="col">Attendees</th>
+  </thead>
+  <tbody>
+    {{#each events}}
+      <tr>
+        <td>
+          <form action="https://www.expresstechsoftwares.com/calendar/update" method="post">
+          <input type="hidden" value="{{this.id}}" name="event_id">
+          <input type="text" value="{{this.subject}}" name="event_subject" id="{{trimString this.id}}">
+          <input type="submit" value="Post" id="update-event">
+          </form>
+           </td>
+        <td>{{this.start.dateTime}} ({{this.start.timeZone}})</td>
+        <td>{{this.end.dateTime}} ({{this.end.timeZone}})</td>
+        <td>
+          <ul class="list-unstyled">
+            {{#each this.attendees}}
+              <li class="border p-1" title="{{this.emailAddress.address}}">
+                {{this.emailAddress.name}}
+              </li>
+            {{/each}}
+          </ul>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
