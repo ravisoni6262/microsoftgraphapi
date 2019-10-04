@@ -34,8 +34,13 @@ router.get('/', async function(req, res, next) {
 	try {
 		const result = await client.api('/subscriptions')
 		.post(subscription);
-		parms.webres = JSON.stringify(result);
-		res.render('webhook', parms);
+		console.log(result.applicationId);
+		if (result.applicationId !== undefined) {
+		  res.end(JSON.stringify({'status':true,'message':'Web-hook Connected!! Now listening for calendar updates.'}));
+		}
+		else{
+			 res.end(JSON.stringify({'status':false,'message':'Error occured'}));
+		}
 	}
 
 	catch (err) {
